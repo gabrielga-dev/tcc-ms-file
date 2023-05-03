@@ -1,9 +1,13 @@
 package br.com.events.file.application.controller.v1;
 
 import br.com.events.file.domain.entity.FileType;
+import br.com.events.file.domain.io.file.findFiles.FindFilesMapper;
+import br.com.events.file.domain.io.file.findFiles.out.FindFilesResult;
 import br.com.events.file.domain.io.file.upload.in.UploadFileRequest;
 import br.com.events.file.domain.io.file.upload.out.UploadFileResult;
 import br.com.events.file.infrastructure.controller.v1.FileControllerDoc;
+import br.com.events.file.infrastructure.usecase.file.FindContractUseCase;
+import br.com.events.file.infrastructure.usecase.file.FindFilesFromOriginUseCase;
 import br.com.events.file.infrastructure.usecase.file.FindImageUseCase;
 import br.com.events.file.infrastructure.usecase.file.FindSheetMusicUseCase;
 import br.com.events.file.infrastructure.usecase.file.UploadFileUseCase;
@@ -19,13 +23,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/v1/file")
 public class FileController implements FileControllerDoc {
 
     private final FindImageUseCase findImageUseCase;
+    private final FindFilesFromOriginUseCase findFilesFromOriginUseCase;
     private final FindSheetMusicUseCase findSheetMusicUseCase;
+    private final FindContractUseCase findContractUseCase;
     private final UploadFileUseCase uploadFileUseCase;
 
     @Override
@@ -37,9 +45,27 @@ public class FileController implements FileControllerDoc {
     }
 
     @Override
+    @GetMapping("/origin")
+    public ResponseEntity<List<FindFilesResult>> getFiles(
+            @RequestParam String origin, @RequestParam String originUuid
+    ){
+        var request = FindFilesMapper.from(origin, originUuid);
+        var result = findFilesFromOriginUseCase.execute(request);
+        return ResponseEntity.ok(result);
+    }
+
+    @Override
     @GetMapping(value = "/sheet/{uuid}", produces = MediaType.APPLICATION_PDF_VALUE)
     public ResponseEntity<byte[]> getSheetMusic(@PathVariable("uuid") String uuid) {
         var result = findSheetMusicUseCase.execute(uuid);
+
+        return ResponseEntity.ok(result);
+    }
+
+    @Override
+    @GetMapping(value = "/contract/{uuid}", produces = MediaType.APPLICATION_PDF_VALUE)
+    public ResponseEntity<byte[]> getContract(@PathVariable("uuid") String uuid) {
+        var result = findContractUseCase.execute(uuid);
 
         return ResponseEntity.ok(result);
     }
