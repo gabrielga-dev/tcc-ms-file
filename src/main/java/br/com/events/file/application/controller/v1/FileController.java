@@ -7,6 +7,7 @@ import br.com.events.file.domain.io.file.upload.in.UploadFileRequest;
 import br.com.events.file.domain.io.file.upload.out.UploadFileResult;
 import br.com.events.file.infrastructure.controller.v1.FileControllerDoc;
 import br.com.events.file.infrastructure.usecase.file.FindContractUseCase;
+import br.com.events.file.infrastructure.usecase.file.FindDefaultUserImageUseCase;
 import br.com.events.file.infrastructure.usecase.file.FindFilesFromOriginUseCase;
 import br.com.events.file.infrastructure.usecase.file.FindImageUseCase;
 import br.com.events.file.infrastructure.usecase.file.FindSheetMusicUseCase;
@@ -35,6 +36,7 @@ public class FileController implements FileControllerDoc {
     private final FindSheetMusicUseCase findSheetMusicUseCase;
     private final FindContractUseCase findContractUseCase;
     private final UploadFileUseCase uploadFileUseCase;
+    private final FindDefaultUserImageUseCase findDefaultUserImageUseCase;
 
     @Override
     @GetMapping(value = "/image/{uuid}", produces = MediaType.IMAGE_JPEG_VALUE)
@@ -88,5 +90,12 @@ public class FileController implements FileControllerDoc {
         var result = uploadFileUseCase.execute(request);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(result);
+    }
+
+    @Override
+    @GetMapping(value = "/default/image", produces = MediaType.IMAGE_JPEG_VALUE)
+    public ResponseEntity<byte[]> getDefaultUserPicture() {
+        var result = findDefaultUserImageUseCase.execute(null);
+        return ResponseEntity.ok(result);
     }
 }

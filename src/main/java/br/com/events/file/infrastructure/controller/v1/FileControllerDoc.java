@@ -29,4 +29,7 @@ public interface FileControllerDoc {
     ResponseEntity<UploadFileResult> uploadFile(
             String origin, String originUuid, FileType fileType, MultipartFile file
     );
+
+    @ApiOperation(value = "Returns the default person image")
+    ResponseEntity<byte[]> getDefaultUserPicture();
 }
