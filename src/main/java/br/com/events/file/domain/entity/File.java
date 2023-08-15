@@ -30,6 +30,7 @@ import java.util.UUID;
 public class File {
 
     @Id
+    @Builder.Default
     @Column(name = "uuid")
     private String uuid = UUID.randomUUID().toString();
 
