@@ -5,6 +5,7 @@ import br.com.events.file.domain.exception.interceptor.NoApiKeyReceivedException
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
@@ -34,6 +35,12 @@ public class ApiKeyInterceptor implements HandlerInterceptor {
     public boolean preHandle(
             final HttpServletRequest request, final HttpServletResponse response, final Object handler
     ) throws Exception {
+        if (
+                HttpMethod.GET.name().equals(request.getMethod()) &&
+                        request.getRequestURL().toString().contains("/v1/file/image")
+        ) {
+            return HandlerInterceptor.super.preHandle(request, response, handler);
+        }
         var apiKey = Optional.ofNullable(request.getHeader(apiKeyHeader))
                 .orElseThrow(NoApiKeyReceivedException::new);
         if (validApiKeys.contains(apiKey)) {
