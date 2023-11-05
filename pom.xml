@@ -101,6 +101,7 @@
                 </configuration>
             </plugin>
         </plugins>
+        <finalName>my-events-ms-file-docker</finalName>
     </build>
     <repositories>
         <repository>
