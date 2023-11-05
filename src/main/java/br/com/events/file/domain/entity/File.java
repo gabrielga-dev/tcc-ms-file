@@ -1,7 +1,6 @@
 package br.com.events.file.domain.entity;
 
 import br.com.events.file.domain.io.file.upload.in.UploadFileRequest;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -28,7 +27,6 @@ import java.util.UUID;
 public class File {
 
     @Id
-    @Builder.Default
     @Column(name = "uuid")
     private String uuid = UUID.randomUUID().toString();
 
