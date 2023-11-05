@@ -28,6 +28,11 @@ public class FtpFileAdapter {
         try {
             FTPClient ftpClient = new FTPClient();
 
+            log.info(
+                    "Connecting to FTP server with: user: {}, password: {}, server: {}:{}",
+                    user, password, server, port
+            );
+
             ftpClient.connect(server, port);
             ftpClient.login(user, password);
             ftpClient.enterLocalPassiveMode();
@@ -74,7 +79,7 @@ public class FtpFileAdapter {
                 var returned = ftpClient.storeFile(fileName, inputStream);
 
                 log.info("File uploading: {}", returned);
-                if (!returned){
+                if (!returned) {
                     throw new UploadFileException();
                 }
             } catch (Exception ex) {
