@@ -1,6 +1,6 @@
 package br.com.events.file.domain.entity;
 
-import lombok.AllArgsConstructor;
+import br.com.events.file.domain.io.file.upload.in.UploadFileRequest;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,9 +23,7 @@ import java.util.UUID;
 @Getter
 @Setter
 @Entity
-@Builder
 @NoArgsConstructor
-@AllArgsConstructor
 @Table(name = "file")
 public class File {
 
@@ -49,4 +47,30 @@ public class File {
 
     @Column(name = "creation_date", nullable = false)
     private LocalDateTime creationDate;
+
+    public File(UploadFileRequest request) {
+        var now = LocalDateTime.now();
+
+        this.name = generateFileName(request, now);
+        this.type = request.getFileType();
+        this.origin = request.getOrigin();
+        this.originUuid = request.getOriginUuid();
+        this.creationDate = now;
+    }
+
+    private String generateFileName(UploadFileRequest origin, LocalDateTime now) {
+        return origin.getFileType().name() +
+                "_" +
+                origin.getOrigin() +
+                "_" +
+                origin.getOriginUuid() +
+                "_" +
+                now.getYear() +
+                now.getMonthValue() +
+                now.getDayOfMonth() +
+                now.getHour() +
+                now.getMinute() +
+                "." +
+                origin.getFileType().getExtension(origin.getFile());
+    }
 }
