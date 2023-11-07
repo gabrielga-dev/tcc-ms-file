@@ -78,12 +78,13 @@
             <artifactId>spring-boot-starter-validation</artifactId>
         </dependency>
 
-        <!-- FTP -->
+<!--    s3    -->
         <dependency>
-            <groupId>commons-net</groupId>
-            <artifactId>commons-net</artifactId>
-            <version>3.8.0</version>
+            <groupId>com.amazonaws</groupId>
+            <artifactId>aws-java-sdk</artifactId>
+            <version>1.11.163</version>
         </dependency>
+
     </dependencies>
 
     <build>
@@ -101,6 +102,7 @@
                 </configuration>
             </plugin>
         </plugins>
+        <finalName>my-events-ms-file-docker</finalName>
     </build>
     <repositories>
         <repository>
