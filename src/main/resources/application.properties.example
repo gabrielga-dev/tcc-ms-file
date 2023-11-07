@@ -18,11 +18,11 @@ spring.datasource.password=root
 spring.jpa.show-sql=true
 spring.flyway.placeholder-prefix==>123654
 
-#FTP server
-ftp.server.server=localhost
-ftp.server.port=21
-ftp.server.user=user
-ftp.server.password=password
+#s3 server
+aws.s3.access-key=<ACCESS-KEY>
+aws.s3.secret-key=<SECRET-KEY>
+aws.s3.region=<REGION>
+aws.s3.name=<BUCKET-NAME>
 
 #File values
 file.validation.image.size=2048000

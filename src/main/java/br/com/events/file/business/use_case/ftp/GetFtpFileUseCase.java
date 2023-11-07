@@ -1,6 +1,6 @@
 package br.com.events.file.business.use_case.ftp;
 
-import br.com.events.file.adapter.ftp.FtpFileAdapter;
+import br.com.events.file.adapter.s3.S3AdapterImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -8,9 +8,9 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class GetFtpFileUseCase {
 
-    private final FtpFileAdapter ftpFileAdapter;
+    private final S3AdapterImpl ftpFileAdapter;
 
-    public byte[] execute(String fileName){
+    public byte[] execute(String fileName) {
         return ftpFileAdapter.getFile(fileName);
     }
 }
