@@ -1,6 +1,6 @@
 package br.com.events.file.business.use_case.ftp;
 
-import br.com.events.file.adapter.s3.S3Adapter;
+import br.com.events.file.adapter.file.FileAdapter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
@@ -9,7 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 @RequiredArgsConstructor
 public class UploadFtpFileUseCase {
 
-    private final S3Adapter ftpFileAdapter;
+    private final FileAdapter ftpFileAdapter;
 
     public void execute(String fileName, MultipartFile multipartFile) {
         ftpFileAdapter.uploadFile(fileName, multipartFile);

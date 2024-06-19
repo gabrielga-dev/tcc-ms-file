@@ -4,7 +4,7 @@ import br.com.events.file.business.process.file.validation.FileValidationCaller;
 import br.com.events.file.business.use_case.file.BuildFileUseCase;
 import br.com.events.file.business.use_case.file.FindFileUseCase;
 import br.com.events.file.business.use_case.file.SaveFileUseCase;
-import br.com.events.file.business.use_case.ftp.GetFtpFileUseCase;
+import br.com.events.file.business.use_case.ftp.GetFileUseCase;
 import br.com.events.file.business.use_case.ftp.UploadFtpFileUseCase;
 import br.com.events.file.domain.entity.File;
 import br.com.events.file.domain.entity.FileType;
@@ -25,7 +25,7 @@ public class FileServiceImpl implements FileService {
 
     private final FileValidationCaller fileValidationCaller;
 
-    private final GetFtpFileUseCase getFtpFileUseCase;
+    private final GetFileUseCase getFtpFileUseCase;
     private final UploadFtpFileUseCase uploadFtpFileUseCase;
 
     private final FindFileUseCase findFileUseCase;
