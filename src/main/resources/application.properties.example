@@ -4,6 +4,9 @@ spring.application.name=ms-file
 server.servlet.encoding.charset=UTF-8
 server.servlet.encoding.force=true
 
+file.technology=ftp
+#file.technology=s3 #not use right now
+
 #API-KEY
 api.key.header=api-key
 valid.api.keys=TCC-FRONT-WEB,TCC-MS-EVENT,TCC-POSTMAN,TCC-MS-BAND
@@ -12,7 +15,7 @@ spring.mvc.pathmatch.matching-strategy=ant-path-matcher
 
 #JPA and DATABASE
 spring.jpa.database=MYSQL
-spring.datasource.url=jdbc:mysql://localhost:3306/msfile?useSSL=false&allowPublicKeyRetrieval=True
+spring.datasource.url=jdbc:mysql://localhost:3306/msfile?useSSL=false&allowPublicKeyRetrieval=True&createDatabaseIfNotExist=true
 spring.datasource.username=root
 spring.datasource.password=root
 spring.jpa.show-sql=true
@@ -23,6 +26,12 @@ aws.s3.access-key=<ACCESS-KEY>
 aws.s3.secret-key=<SECRET-KEY>
 aws.s3.region=<REGION>
 aws.s3.name=<BUCKET-NAME>
+
+#FTP server
+ftp.server.server=localhost
+ftp.server.port=21
+ftp.server.user=user
+ftp.server.password=password
 
 #File values
 file.validation.image.size=2048000
